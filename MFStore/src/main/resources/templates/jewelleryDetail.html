@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+	<div class="container-fluid">
+		<div>
+			<div class="section-headline" style="margin-top: 30px;">
+				<span
+					th:text="${user}? ${#strings.toUpperCase(user.username)} : 'All Jewellery'"></span>
+			</div>
+			<hr
+				style="margin-top: -20px; height: 2.5px; border-width: 0; color: gray; background-color: black" />
+		</div>
+
+
+		<form th:action="@{/shoppingCart/addItem}" method="post">
+			<input hidden="hidden" th:field="*{jewellery.id}" />
+			<div class="row" style="margin:50px;">
+				<div class="col-xs-3">
+					<a th:href="@{/jewellerylist}"><i class="fa fa-long-arrow-left"></i>Back to Jewellery list</a><br /> <img
+						class="img-responsive list-jewellery" width="300" height="300"
+						style="border: 2px solid purple; margin:20px 40px;"
+						th:src="#{adminPath}+@{/image/jewellery/}+${jewellery.id}+'.png'" />
+				</div>
+
+				<div class="col-xs-9" style="padding:30px 50px;">
+					<h3>
+						<span th:if="${addJewellerySuccess}" style="color: forestgreen"><i
+							class="fa fa-check" aria-hidden="true" style="color: forestgreen"></i>Added
+							to cart.</span>
+					</h3>
+					<h3>
+						<span th:if="${notEnoughStock}" style="color: red">Oops,
+							only <span th:text="${jewellery.inStockNumber}"></span> In Stock.
+						</span>
+					</h3>
+					<h3 th:text="${jewellery.title}">Jewellery Title</h3>
+					<div class="row">
+						<div class="col-xs-5" style="padding:10px;">
+							<p>
+								<strong>Metal Type: </strong><span
+									th:text="${jewellery.metalType}"></span>
+							</p>
+							<p>
+								<strong>Metal Color: </strong><span
+									th:text="${jewellery.metalColor}"></span>
+							</p>
+							<p>
+								<strong>Gender: </strong><span th:text="${jewellery.gender}"></span>
+							</p>
+							<p>
+								<strong>Product Category: </strong><span
+									th:text="${jewellery.productCategory}"></span>
+							</p>
+							<p>
+								<strong>Weight: </strong><span th:text="${jewellery.weight}"></span>
+								grams
+							</p>
+						</div>
+
+						<div class="col-xs-7" style="padding:10px 50px;margin-left:100px">
+							<div class="panel panel-default"
+								style="border: 5px solid purple;padding:20px;border-radius: 25px;">
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-xs-6">
+											<h4>
+												Price: <span style="color: #db3208;">Rs. <span
+													th:text="${jewellery.price}"></span></span>
+											</h4>
+											<span>Qty: </span> <select name="qty">
+												<option th:each="qty : ${qtyList}" th:value="${qty}"
+													th:text="${qty}"></option>
+											</select>
+										</div>
+										<div class="col-xs-6"style="padding:0px 50px;">
+											<h4 th:if="*{jewellery.inStockNumber&gt;10}"
+												style="color: green">In Stock</h4>
+											<h4
+												th:if="*{jewellery.inStockNumber&lt;10 and jewellery.inStockNumber&gt;0}"
+												style="color: green">
+												Only <span th:text="${jewellery.inStockNumber}"> </span> In
+												Stock
+											</h4>
+											<h4 th:if="*{jewellery.inStockNumber==0}"
+												style="color: darkred;">Unavailable</h4>
+											<button type="submit" class="btn btn-warning"
+												style="color: black; border: 1px solid black; padding: 10px 40px 10px 40px;">Add
+												to Cart</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<hr style="height: 1px; border-width: 0; color: gray; background-color: black" />
+					<p th:utext="${jewellery.description}"></p>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- end of container -->
+    <div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>

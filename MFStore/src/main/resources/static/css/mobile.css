@@ -1,0 +1,73 @@
+.page-top{
+	width: 100%; 
+	height:50px!important;
+	font-family:Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+	font-size:25px;
+	color: #6a1571;
+	margin: auto;
+	text-align: center;
+	border:1px solid #6a1571;
+	padding:5px;
+}
+	
+
+.home-headline{
+	font-family: 'Times New Roman', Times, serif;
+	font-size:20px;
+	color: #fff;
+	margin: auto;
+	text-align: center;
+	margin-top: 50px;
+}
+
+.home-headline span {
+	background-color: #000000;
+    padding: 5px 22px;
+}
+
+
+
+.image-grid{
+	
+	width:100%;
+	margin-top:20px;
+}
+
+.column {
+  width: 25%;
+  padding: 5px;
+  border:2px solid #6a1571;
+  margin:15px 15px 10px 25px; 
+  text-align: center;
+  color: #6a1571;
+  font-family:"Times New Roman",Times,serif;
+ 
+  
+}
+
+.column .grid{
+	text-decoration:none;
+	color:#6a1571;
+}
+
+h3{
+	font-size: 1.17em;
+}
+
+
+div.dataTables_wrapper div.dataTables_filter label {
+	margin-left: 80px;
+}
+
+
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+	margin-left: 85px;
+	
+}
+
+.aboutus{
+	color:purple;
+	border:2px solid purple;
+	margin:20px 2px;
+	padding:5px 10px 10px 10px;
+}

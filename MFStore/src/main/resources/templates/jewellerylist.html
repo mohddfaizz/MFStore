@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+	<div class="container-fluid" >
+		<div>
+			<div class="section-headline" style="margin-top:30px;">
+				<span th:text="${user}? ${#strings.toUpperCase(user.username)} : 'All Jewellery'"></span>
+			</div>
+			<hr
+				style="margin-top: -20px; height: 2.5px; border-width: 0; color: gray; background-color: black" />
+		</div>
+	
+	
+		<div class="row">
+			<div class="col-3">
+				<h3>
+					<label for="productCategory">CATEGORY</label>
+				</h3>
+				<div class="list-group" id="productCategory">
+					<a th:href="@{/jewellerylist(category='all')}"
+						th:classappend="${activeAll}? 'active'" class="list-group-item">All</a>
+					<a th:href="@{/searchByProductCategory(productCategory='Bangles')}"
+						th:classappend="${activeBangles}? 'active'"
+						class="list-group-item">Bangles</a> <a
+						th:href="@{/searchByProductCategory(productCategory='Chains')}"
+						th:classappend="${activeChains}? 'active'"
+						class="list-group-item">Chains</a> <a
+						th:href="@{/searchByProductCategory(productCategory='Earrings')}"
+						th:classappend="${activeEarrings}? 'active'"
+						class="list-group-item">Earrings</a> <a
+						th:href="@{/searchByProductCategory(productCategory='Necklaces')}"
+						th:classappend="${activeNecklaces}? 'active'"
+						class="list-group-item">Necklaces</a> <a
+						th:href="@{/searchByProductCategory(productCategory='Nosepins')}"
+						th:classappend="${activeNosepins}? 'active'"
+						class="list-group-item">Nosepins</a><a
+						th:href="@{/searchByProductCategory(productCategory='Rings')}"
+						th:classappend="${activeRings}? 'active'"
+						class="list-group-item">Rings</a>
+				</div>
+			</div>
+
+			<div class="col-9">
+				<div th:if="${emptyList}">
+					<h5 style="font-style: italic;">Oops, no result is found. Try
+						something else or try again later.</h5>
+				</div>
+
+				<table border="0" id="jewelleryList">
+					<thead>
+						<tr>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="jewellery-item" data-th-each="jewellery : ${jewelleryList}">
+							<td>
+								<div th:if="${jewellery != null}">
+									<div class="row">
+										<div class="col-4">
+											<a th:href="@{/jewelleryDetail?id=}+${jewellery.id}"><img
+												class="img-responsive list-jewellery"  style="border:2px solid purple;width:100%;"
+												th:src="@{/image/jewellery/}+${jewellery.id}+'.png'" /></a>
+										</div>
+										<div class="col-8 jewellerylist">
+											<a th:href="@{/jewelleryDetail?id=}+${jewellery.id}">
+											<span th:text="${jewellery.title}"></span></a> 
+											<p th:text="${jewellery.metalType}"></p>
+											<p th:text="${jewellery.gender}"></p>
+											<span th:text="${jewellery.weight}"></span><span> grams</span><br />
+
+											<a th:href="@{/jewelleryDetail?id=}+${jewellery.id}"><span
+												style="font-size: x-large; color: #db3208;">Rs. <span
+													th:text="${#numbers.formatDecimal(jewellery.price, 0 , 'COMMA', 2, 'POINT')}"></span></span></a>
+
+
+											<p th:utext="${#strings.abbreviate(jewellery.description, 1000)}"></p>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- end of container -->
+     
+     <div th:replace="common/header :: footer"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+	
+	<script>
+		$(document).ready(function() {
+			$('#jewelleryList').DataTable({
+				"lengthMenu": [ [5, 10, 15, -1], [5, 10, 15, "All"] ],
+				"ordering":false,
+				stateSave:true
+			});
+			
+			$("#jewelleryList").on('page.dt', function() {
+				$('html, body').animate({
+					scrollTop: $('#jewelleryList').offset().top
+				}, 200);
+			});
+		});
+	</script>
+	
+</body>
+</html>
